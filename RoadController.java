@@ -16,7 +16,7 @@ public class RoadController {
                 {
                     Village village = new Village(road);
                     Thread th = new Thread(village);
-                    village.setName("East Village : "+th.getId());
+                    village.setName("East Villager: "+th.getId());
                     th.start();
                     try
                     {
@@ -40,7 +40,7 @@ public class RoadController {
                 {
                     Village village = new Village(road);
                     Thread th = new Thread(village);
-                    village.setName("West Village: "+th.getId());
+                    village.setName("West Villager: "+th.getId());
                     th.start();
                     try
                     {
@@ -72,9 +72,9 @@ class Road
     {
         try
         {
-            System.out.printf(" %s is trying to cross the bridge.\n", village.getName());
+            System.out.printf(" %s wants to cross the road.\n", village.getName());
             semaphore.acquire();
-            System.out.printf(" %s is crossing the bridge.\n", village.getName());
+            System.out.printf(" %s is crossing the road.\n", village.getName());
             long duration = (long)(Math.random() * 10);
             TimeUnit.SECONDS.sleep(duration);
         }
@@ -84,7 +84,7 @@ class Road
         }
         finally
         {
-            System.out.printf(" %s has crossed the bridge.\n",village.getName());
+            System.out.printf(" %s has crossed the road.\n",village.getName());
             semaphore.release();
         }
     }
