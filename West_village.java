@@ -2,6 +2,8 @@
 public class West_village 
 {
 
-   //Your code here
+   public West_village() {
+
+   }
    
 }

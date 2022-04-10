@@ -1,6 +1,8 @@
 
 public class East_village 
 {
-   //Your code here
+   public East_village() {
+
+   }
    
 }
