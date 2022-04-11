@@ -9,50 +9,52 @@ public class RoadController {
          
         Thread east = new Thread( new Runnable() {
              
-            @Override
-            public void run() {
-             
-                while(true)
-                {
-                    Village village = new Village(road);
-                    Thread th = new Thread(village);
-                    village.setName("East Villager: "+th.getId());
-                    th.start();
-                    try
-                    {
-                        TimeUnit.SECONDS.sleep((long)(Math.random()*10));
-                    }
-                    catch(InterruptedException iex)
-                    {
-                        iex.printStackTrace();
-                    }
-                }
-                 
-            }
-        });
-         
-        Thread west = new Thread( new Runnable() {
-             
-            @Override
-            public void run() {
-                 
-                while(true)
-                {
-                    Village village = new Village(road);
-                    Thread th = new Thread(village);
-                    village.setName("West Villager: "+th.getId());
-                    th.start();
-                    try
-                    {
-                        TimeUnit.SECONDS.sleep((long)(Math.random()*10));
-                    }
-                    catch(InterruptedException iex)
-                    {
-                        iex.printStackTrace();
-                    }
-                }
-            }
-        });
+         @Override
+         public void run() {
+          
+             while(true)
+             {
+                 Village village = new Village(road);
+                 Thread eastThread = new Thread(village);
+                 village.setName("East Villager: "+ eastThread.getId());
+                 eastThread.start();
+                 try
+                 {
+                    long sleepTime = (long)(Math.random()*10);
+                    TimeUnit.SECONDS.sleep(sleepTime);
+                 }
+                 catch(Exception e)
+                 {
+                     System.out.println(e);
+                 }
+             }
+              
+         }
+     });
+      
+     Thread west = new Thread( new Runnable() {
+          
+         @Override
+         public void run() {
+              
+             while(true)
+             {
+                 Village village = new Village(road);
+                 Thread westThread = new Thread(village);
+                 village.setName("West Villager: "+ westThread.getId());
+                 westThread.start();
+                 try
+                 {
+                    long sleepTime = (long)(Math.random()*10);
+                     TimeUnit.SECONDS.sleep(sleepTime);
+                 }
+                 catch(Exception e)
+                 {
+                     System.out.println(e);
+                 }
+             }
+         }
+     });
          
         east.start();
         west.start();
@@ -75,16 +77,15 @@ class Road
             System.out.printf(" %s wants to cross the road.\n", village.getName());
             semaphore.acquire();
             System.out.printf(" %s is crossing the road.\n", village.getName());
-            long duration = (long)(Math.random() * 10);
-            TimeUnit.SECONDS.sleep(duration);
+            TimeUnit.SECONDS.sleep((long)(Math.random() * 10));
         }
-        catch(InterruptedException iex)
+        catch(Exception e)
         {
-            iex.printStackTrace();
+            System.out.println(e);
         }
         finally
         {
-            System.out.printf(" %s has crossed the road.\n",village.getName());
+            System.out.printf(" %s has finished crossing the road.\n",village.getName());
             semaphore.release();
         }
     }
